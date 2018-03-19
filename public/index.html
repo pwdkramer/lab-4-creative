@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css"/>
+    <title>MTG Decklist Manager</title>
+  </head>
+  <body>
+    <header>
+    <img src="/images/mana-symbols.png" alt="WUBRG">
+    <h1>Decklist Manager</h1>
+  </header>
+  <br><br><br><b><br>
+    <div class="main" id="app">
+      <p v-show="items.length === 0">Type in a card name to start building your deck!</p>
+      <form v-on:submit.prevent="addItem">
+	<input type="text" v-model="text">
+  <select name="quantity" v-model="quantity">
+    <option value=1>1</option>
+    <option value=2>2</option>
+    <option value=3>3</option>
+    <option value=4>4</option>
+  </select>
+	<button type="submit">Add Card</button>
+  <p>Constructed decks have a minimum card count of 60, with no more than 4 of any one card</p>
+      </form>
+      <ul>
+	<li v-for="item in items" draggable="true" v-on:dragstart="dragItem(item)" v-on:dragover.prevent v-on:drop="dropItem(item)">
+	  <button v-on:click="incQuantity(item)">&#9650;</button><button v-on:click="decQuantity(item)">&#9660;</button><b>{{ item.text }} </b>&nbsp; x {{ item.quantity }}</label><button v-on:click="deleteItem(item)" class="delete">X</button>
+	</li>
+      </ul>
+    </div>
+
+    <div class="footer">
+      <p><a href="https://github.com/BYU-CS260-Winter-2018/creative-project-4">GitHub Repository</a></p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js" integrity="sha256-mpnrJ5DpEZZkwkE1ZgkEQQJW/46CSEh/STrZKOB/qoM=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js" integrity="sha256-pU9euBaEcVl8Gtg+FRYCtin2vKLN8sx5/4npZDmY2VA=" crossorigin="anonymous"></script>
+    <script src="/script.js"></script>
+  </body>
+</html>
